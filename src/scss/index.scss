@@ -5,6 +5,7 @@
 @import "toolbar.scss";
 @import "formula.scss";
 @import "table.scss";
+@import "dashboard.scss";
 
 * {
   padding: 0;
@@ -17,4 +18,8 @@ body {
 }
 .excel {
   position: relative;
+  color: #888;
+  height: 100%;
+  max-width: 100%;
+  font-size: 0.8rem;
 }
