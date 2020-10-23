@@ -5,5 +5,23 @@
         "browser": true,
         "node": true,
     },
+    rules: {
+        object-curly-spacing: off,
+        semi: off,
+        linebreak-style: off,
+        require-jsdoc: off,
+        padded-blocks: off,
+        eol-last: off,
+        indent: off,
+        spaced-comment: off,
+        max-len: off,
+        no-unused-vars: off,
+        arrow-parens: off,
+        operator-linebreak: off,
+        comma-dangle: off,
+        brace-style: off,
+        block-spacing: off,
+
+    },
      "extends": ["eslint:recommended", "google"],
 }
