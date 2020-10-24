@@ -3,48 +3,58 @@ const CODES = {
     Z: 90
 }
 
-function createCell() {
+function toCell(_, col) {
     return `
-        <div class="cell" contenteditable></div>
-        `
-}
-function toColumn(col) {
-    return `
-        <div class="column">${col}</div>
-        `
+    <div class="cell" contenteditable data-col="${col}"></div>
+  `
 }
 
-function createRow(content, number = '') {
+function toColumn(col, index) {
     return `
-        <div class="row">
-        <div class="row-info">${number}</div>
-        <div class="row-data">${content}</div>
-        </div>
-        `
+    <div class="column" data-type="resizable" data-col="${index}">
+      ${col}
+      <div class="col-resize" data-resize="col"></div>
+    </div>
+  `
+}
+
+function createRow(index, content) {
+    const resize = index ? '<div class="row-resize" data-resize="row"></div>' : ''
+    return `
+    <div class="row" data-type="resizable">
+      <div class="row-info">
+        ${index ? index : ''}
+        ${resize}
+      </div>
+      <div class="row-data">${content}</div>
+    </div>
+  `
 }
 
 function toChar(_, index) {
     return String.fromCharCode(CODES.A + index)
 }
 
-export function createTable(rowsCount = 30) {
-    const colCount = CODES.Z - CODES.A + 1
+export function createTable(rowsCount = 15) {
+    const colsCount = CODES.Z - CODES.A + 1 // Compute cols count
     const rows = []
-    const cols = new Array(colCount)
+
+    const cols = new Array(colsCount)
         .fill('')
         .map(toChar)
         .map(toColumn)
         .join('')
 
-    const cell = new Array(colCount)
-        .fill('')
-        .map(createCell)
-        .join('')
+    rows.push(createRow(null, cols))
 
-    rows.push(createRow(cols))
     for (let i = 0; i < rowsCount; i++) {
-        rows.push(createRow(cell, i + 1))
-    }
-    return rows.join('')
+        const cells = new Array(colsCount)
+            .fill('')
+            .map(toCell)
+            .join('')
 
+        rows.push(createRow(i + 1, cells))
+    }
+
+    return rows.join('')
 }
