@@ -11,15 +11,15 @@ export class DomListener {
 
   }
   initDomListener() {
-    this.listeners.forEach(listener => {
-      const method = getMethodName(listener)
+    this.listeners.forEach(listeners => {
+      const method = getMethodName(listeners)
       if (!this[method]) {
         const name = this.name || ''
         throw new Error(`Metdod ${method} is not defined in ${name} Component`)
       }
       this[method] = this[method].bind(this) //всегда один контекст куда бы не добавляли
       // on это тоже самое что и addEventListener
-      this.$root.on(listener, this[method])
+      this.$root.on(listeners, this[method])
     })
   }
   removeDomListener() {
