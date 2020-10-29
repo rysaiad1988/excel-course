@@ -1,4 +1,4 @@
-import { capitalize } from './utilis'
+import {capitalize} from '@core/utils'
 
 export class DomListener {
   constructor($root, listeners = []) {
@@ -7,33 +7,34 @@ export class DomListener {
     }
     this.$root = $root
     this.listeners = listeners
-
-
   }
-  initDomListener() {
-    this.listeners.forEach(listeners => {
-      const method = getMethodName(listeners)
+
+  initDOMListeners() {
+    this.listeners.forEach(listener => {
+      const method = getMethodName(listener)
       if (!this[method]) {
         const name = this.name || ''
-        throw new Error(`Metdod ${method} is not defined in ${name} Component`)
+        throw new Error(
+            `Method ${method} is not implemented in ${name} Component`
+        )
       }
-      this[method] = this[method].bind(this) //всегда один контекст куда бы не добавляли
-      // on это тоже самое что и addEventListener
-      this.$root.on(listeners, this[method])
+      this[method] = this[method].bind(this)
+      // Тоже самое что и addEventListener
+      this.$root.on(listener, this[method])
     })
   }
-  removeDomListener() {
-    this.listeners.forEach(listeners => {
-      const method = getMethodName(listeners);
-      if (!this[method]) {
-        const name = this.name || ''
-        throw new Error(`Metdod ${method} is not defined in ${name} Component`)
-      }
-      this.$root.removeListener(listeners, this[method])
+
+  removeDOMListeners() {
+    this.listeners.forEach(listener => {
+      const method = getMethodName(listener)
+      this.$root.off(listener, this[method])
     })
   }
 }
-// pure function input => onInput
-function getMethodName(name) {
-  return 'on' + capitalize(name)
+
+// input => onInput
+function getMethodName(eventName) {
+  return 'on' + capitalize(eventName)
 }
+
+
