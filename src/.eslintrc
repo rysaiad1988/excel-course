@@ -4,6 +4,7 @@
         "es6": true,
         "browser": true,
         "node": true,
+         "jest/globals": true
     },
     rules: {
         object-curly-spacing: off,
@@ -22,7 +23,9 @@
         brace-style: off,
         block-spacing: off,
         space-before-function-paren: off,
+        
 
     },
-     "extends": ["eslint:recommended", "google"],
+    "plugins": ["jest"],
+    "extends": ["eslint:recommended", "google"],
 }
