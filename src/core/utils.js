@@ -11,8 +11,8 @@ export function range(start, end) {
     [end, start] = [start, end]
   }
   return new Array(end - start + 1)
-    .fill('')
-    .map((_, index) => start + index)
+      .fill('')
+      .map((_, index) => start + index)
 }
 
 export function storage(key, data = null) {
@@ -35,13 +35,13 @@ export function camelToDashCase(str) {
 
 export function toInlineStyles(styles = {}) {
   return Object.keys(styles)
-    .map(key => `${camelToDashCase(key)}: ${styles[key]}`)
-    .join(';')
+      .map(key => `${camelToDashCase(key)}: ${styles[key]}`)
+      .join(';')
 }
 
 export function debounce(fn, wait) {
   let timeout
-  return function (...args) {
+  return function(...args) {
     const later = () => {
       clearTimeout(timeout)
       // eslint-disable-next-line
@@ -55,6 +55,7 @@ export function debounce(fn, wait) {
 export function clone(obj) {
   return JSON.parse(JSON.stringify(obj))
 }
-export function preventDefault(e) {
-  e.preventDefault()
+
+export function preventDefault(event) {
+  event.preventDefault()
 }
